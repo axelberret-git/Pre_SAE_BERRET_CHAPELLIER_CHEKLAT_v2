@@ -1,0 +1,23 @@
+# Utiliser l'image PHP avec Apache comme image de base
+FROM php:8.0-apache
+
+# Installer les dépendances requises pour GD, PDO et PDO MySQL
+RUN apt-get update && \
+    apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd pdo pdo_mysql
+
+# Créer le dossier interface dans le conteneur
+RUN mkdir -p /var/www/interface
+
+# Copier les fichiers de l'interface dans le conteneur
+COPY ../interface/ /var/www/interface/
+
+# Copier le fichier de configuration logs_manager.conf dans le conteneur
+COPY ../init/logs_manager.conf /etc/apache2/sites-available/logs_manager.conf
+
+# Activer le fichier de configuration pour Apache
+RUN a2ensite logs_manager.conf
+
+# Exposer le port 80
+EXPOSE 80

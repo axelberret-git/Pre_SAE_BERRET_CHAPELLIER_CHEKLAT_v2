@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress:php8.0-apache
+    container_name: wordpress
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_password
+      WORDPRESS_DB_NAME: wp_database
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - wp-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mariadb:
+    image: mariadb:10.5
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: wp_database
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_password
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - wp-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  apache:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile_apache
+    container_name: apache
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./interface:/var/www/html
+    networks:
+      - wp-network
+
+volumes:
+  wordpress_data:
+  mariadb_data:
+
+networks:
+  wp-network:
+    driver: bridge
