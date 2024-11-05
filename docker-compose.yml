@@ -46,7 +46,7 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/Dockerfile_apache
-    container_name: apache
+    container_name: web-application
     restart: always
     ports:
       - "80:80"
