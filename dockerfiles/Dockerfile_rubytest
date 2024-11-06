@@ -1,0 +1,18 @@
+# Utiliser une image Ruby officielle
+FROM ruby:3.1
+
+# Installer les dépendances nécessaires
+RUN apt-get update && \
+    apt-get install -y build-essential libmariadb-dev
+
+# Installer la gem mysql2
+RUN gem install mysql2
+
+# Copier le script Ruby dans le conteneur
+COPY ../test/logs_manager.rb /usr/src/app/logs_manager.rb
+
+# Configurer le répertoire de travail
+WORKDIR /usr/src/app
+
+# Maintenir le conteneur actif
+CMD ["sleep", "infinity"]

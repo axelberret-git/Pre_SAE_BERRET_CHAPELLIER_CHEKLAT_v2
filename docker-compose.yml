@@ -42,6 +42,24 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  ruby-test:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile_rubytest
+    container_name: ruby-test
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: wp_database
+      DB_USER: wp_user
+      DB_PASSWORD: wp_password
+    networks:
+      - wp-network
+    volumes:
+      - ./test/logs_manager.rb:/usr/src/app/logs_manager.rb
+
   apache:
     build:
       context: .
