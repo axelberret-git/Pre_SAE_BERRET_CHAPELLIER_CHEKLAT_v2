@@ -37,8 +37,6 @@ def detect_anomalies(client, source, log_type, max_occurrences, intervalle)
   query = %{
     SELECT timestamp, COUNT(*) as count
     FROM logs
-    WHERE source = '#{source}' AND log_type = '#{log_type}' 
-          AND timestamp >= NOW() - INTERVAL #{intervalle} SECOND
     GROUP BY DATE(timestamp), HOUR(timestamp), MINUTE(timestamp)
     HAVING count >= #{max_occurrences}
   }
