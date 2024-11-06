@@ -120,14 +120,3 @@ if client
 else
   puts "Impossible de se connecter à la base de données."
 end
-
-
-
-  # # Insertion des logs mariadb
-  # File.foreach("./maria_logs.log") do |line|
-  #   if line =~ /\[(.*?)\] \[(.*?)\] (.*)/
-      
-  #     query = "INSERT INTO logs (timestamp, log_type, source, message)"
-  #     client.prepare(query).execute(timestamp, log_type, source, message)
-  #   end
-  # end
