@@ -58,7 +58,7 @@ services:
     networks:
       - wp-network
     volumes:
-      - ./test/logs_manager.rb:/usr/src/app/logs_manager.rb
+      - ./test/:/usr/src/app/
 
   apache:
     build:

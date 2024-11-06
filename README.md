@@ -2,7 +2,7 @@
 
 ## Introduction
 
-L'objectif est de concevoir un projet permettant de visualiser les logs du serveur Apache et Mariadb de Wordpress et ce 
+L'objectif est de concevoir un projet permettant de visualiser les logs du serveur Apache et du serveur Mariadb de Wordpress et ce 
 par l'intermédiaire d'une interface web.
 
 On pourra filtrer ces logs par leurs sources ainsi que leurs types (selon la source) et leurs dates.
