@@ -32,6 +32,9 @@ try {
         $params[':timestamp'] = $timestamp;
     }
 
+    // Ajouter l'ordre pour afficher les logs les plus récents en premier
+    $sql .= " ORDER BY timestamp DESC";
+
     // Préparer et exécuter la requête
     $stmt = $conn->prepare($sql);
     $stmt->execute($params);

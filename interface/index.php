@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Logs d'Anomalies</title>
+    <title>Gestion logs</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Logs d'Anomalies</h1>
+    <h1>APPLICATION GESTION DE LOGS</h1>
     <div class="filter">
         <form method="GET" action="script.php"> <!-- Envoi des données vers script.php -->
             <label for="source">Source:</label>
