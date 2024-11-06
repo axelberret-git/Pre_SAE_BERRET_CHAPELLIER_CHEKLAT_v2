@@ -18,8 +18,8 @@ Un unique cas de figure possible :
 
 9 cas de figures possibles :
 - Source : Apache (Wordpress) ----- Type : Tous les types
-- Source : Apache (Wordpress) ----- Type : Types 500
-- Source : Apache (Wordpress) ----- Type : Types 400
+- Source : Apache (Wordpress) ----- Type : Type 500
+- Source : Apache (Wordpress) ----- Type : Type 400
 - Source : Apache (Wordpress) ----- Type : 500 - Memory Exhaustion
 - Source : Apache (Wordpress) ----- Type : 500 - Undefined function
 - Source : Apache (Wordpress) ----- Type : 404 - Page Not Found
@@ -31,12 +31,12 @@ Un unique cas de figure possible :
 ## Gestion Des logs Mariadb (Wordpress)
 
 6 cas de figures possibles :
-- Source : Apache (Wordpress) ----- Type : Tous les types
-- Source : Apache (Wordpress) ----- Type : 1045 - ER_ACCESS_DENIED_ERROR
-- Source : Apache (Wordpress) ----- Type : 2002 - ER_BAD_HOST_ERROR
-- Source : Apache (Wordpress) ----- Type : 1146 - ER_NO_SUCH_TABLE
-- Source : Apache (Wordpress) ----- Type : 1064 - ER_PARSE_ERROR
-- Source : Apache (Wordpress) ----- Type : 1040 - ER_TOO_MANY_CONNECTIONS
+- Source : Mariadb (Wordpress) ----- Type : Tous les types
+- Source : Mariadb (Wordpress) ----- Type : 1045 - ER_ACCESS_DENIED_ERROR
+- Source : Mariadb (Wordpress) ----- Type : 2002 - ER_BAD_HOST_ERROR
+- Source : Mariadb (Wordpress) ----- Type : 1146 - ER_NO_SUCH_TABLE
+- Source : Mariadb (Wordpress) ----- Type : 1064 - ER_PARSE_ERROR
+- Source : Mariadb (Wordpress) ----- Type : 1040 - ER_TOO_MANY_CONNECTIONS
 
 
 ## Conclusion
