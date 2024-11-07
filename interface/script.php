@@ -41,120 +41,82 @@ function defaultPrint($pConn):void {
 }
 
 
-function sourceFilter($pSource):string {
-    $ourceFilter = "";
+function sourceFilter($pSource) {
     if ($pSource === "Apache (Wordpress)") {
-        $sourceFilter = ":source LIKE 'Apache (Wordpress)'";
-    } else if ($pSource === "Mariadb (Wordpress)") {
-        $sourceFilter = "source LIKE 'Mariadb (Wordpress)'";
+        return "source = :pSource";  // Utilisation d'un paramètre préparé
+    } elseif ($pSource === "Mariadb (Wordpress)") {
+        return "source = :pSource";  // Utilisation d'un paramètre préparé
     }
-    return $sourceFilter;
+    return "";  // Aucun filtre si la source n'est pas définie
 }
 
 
-function typeFilter($pType):string {
-    $typeFilter = "";
+function typeFilter($pType) {
     if ($pType === "500 - Memory Exhaustion") {
-        $typeFilter = "log_type LIKE '500 - Memory Exhaustion'";
-    } else if ($pType === "500 - Undefined Function") {
-        $typeFilter = "log_type LIKE '500 - Undefined Function'";
-    } else if ($pType === "404 - Page Not Found") {
-        $typeFilter = "log_type LIKE '404 - Page Not Found'";
-    } else if ($pType === "401 - Access Denied") {
-        $typeFilter = "log_type LIKE '401 - Access Denied'";
-    } else if ($pType === "403 - Access Denied") {
-        $typeFilter = "log_type LIKE '403 - Access Denied'";
-    } else if ($pType === "403 - File Permission") {
-        $typeFilter = "log_type LIKE '403 - File Permission'";
-    } else if ($pType === "1045 - ER_ACCESS_DENIED_ERROR") {
-        $typeFilter = "log_type LIKE '1045 - ER_ACCESS_DENIED_ERROR'";
-    } else if ($pType === "2002 - ER_BAD_HOST_ERROR") {
-        $typeFilter = "log_type LIKE '2002 - ER_BAD_HOST_ERROR'";
-    } else if ($pType === "1146 - ER_NO_SUCH_TABLE") {
-        $typeFilter = "log_type LIKE '1146 - ER_NO_SUCH_TABLE'";
-    } else if ($pType === "1064 - ER_PARSE_ERROR") {
-        $typeFilter = "log_type LIKE '1064 - ER_PARSE_ERROR'";
-    } else if ($pType === "1040 - ER_TOO_MANY_CONNECTIONS") {
-        $typeFilter = "log_type LIKE '1040 - ER_TOO_MANY_CONNECTIONS'";
+        return "log_type = :pType";
+    } elseif ($pType === "500 - Undefined Function") {
+        return "log_type = :pType";
+    } elseif ($pType === "404 - Page Not Found") {
+        return "log_type = :pType";
+    } elseif ($pType === "401 - Access Denied") {
+        return "log_type = :pType";
+    } elseif ($pType === "403 - Access Denied") {
+        return "log_type = :pType";
+    } elseif ($pType === "403 - File Permission") {
+        return "log_type = :pType";
+    } elseif ($pType === "1045 - ER_ACCESS_DENIED_ERROR") {
+        return "log_type = :pType";
+    } elseif ($pType === "2002 - ER_BAD_HOST_ERROR") {
+        return "log_type = :pType";
+    } elseif ($pType === "1146 - ER_NO_SUCH_TABLE") {
+        return "log_type = :pType";
+    } elseif ($pType === "1064 - ER_PARSE_ERROR") {
+        return "log_type = :pType";
+    } elseif ($pType === "1040 - ER_TOO_MANY_CONNECTIONS") {
+        return "log_type = :pType";
+    } elseif ($pType === "Tous les types") {
+        return "";  // Aucun filtre pour "Tous les types"
     }
-    return $typeFilter;
+    return "";
 }
 
 
-function filter($pSource, $pType):string {
-    $sql = "";
-    if ($pSource === "Apache (Wordpress)") {
-        if ($pType === "500 - Memory Exhaustion") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND ".typeFilter("500 - Memory Exhaustion")." ORDER BY timestamp DESC";
-        } else if ($pType === "500 - Undefined Function") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND ".typeFilter("500 - Undefined Function")." ORDER BY timestamp DESC";
-        } else if ($pType === "404 - Page Not Found") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND ".typeFilter("404 - Page Not Found")." ORDER BY timestamp DESC";
-        } else if ($pType === "401 - Access Denied") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND ".typeFilter("401 - Access Denied")." ORDER BY timestamp DESC";
-        } else if ($pType === "403 - Access Denied") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND ".typeFilter("403 - Access Denied")." ORDER BY timestamp DESC";
-        } else if ($pType === "403 - File Permission") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND ".typeFilter("403 - File Permission")." ORDER BY timestamp DESC";
-        } else if ($pType === "Type 500") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND log_type LIKE '5__' ORDER BY timestamp DESC";
-        } else if ($pType === "Type 400") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." AND log_type LIKE '4__' ORDER BY timestamp DESC";
-        } else if ($pType === "Tous les types") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Apache (Wordpress)")." ORDER BY timestamp DESC";
-        }
-    } else if ($pSource === "") {
-        if ($pType === "1045 - ER_ACCESS_DENIED_ERROR") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Mariadb (Wordpress)")." AND ".typeFilter("1045 - ER_ACCESS_DENIED_ERROR")." ORDER BY timestamp DESC";
-        } else if ($pType === "2002 - ER_BAD_HOST_ERROR") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Mariadb (Wordpress)")." AND ".typeFilter("2002 - ER_BAD_HOST_ERROR")." ORDER BY timestamp DESC";
-        } else if ($pType === "1146 - ER_NO_SUCH_TABLE") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Mariadb (Wordpress)")." AND ".typeFilter("1146 - ER_NO_SUCH_TABLE")." ORDER BY timestamp DESC";
-        } else if ($pType === "1064 - ER_PARSE_ERROR") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Mariadb (Wordpress)")." AND ".typeFilter("1064 - ER_PARSE_ERROR")." ORDER BY timestamp DESC";
-        } else if ($pType === "1040 - ER_TOO_MANY_CONNECTIONS") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Mariadb (Wordpress)")." AND ".typeFilter("1040 - ER_TOO_MANY_CONNECTIONS")." ORDER BY timestamp DESC";
-        } else if ($pType === "Tous les types") {
-            $sql = "SELECT * FROM logs WHERE ".sourceFilter("Mariadb (Wordpress)")." ORDER BY timestamp DESC";
-        }
-    } else if ($pSource === "Toutes les sources") {
-        if ($pType === "500 - Memory Exhaustion") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("500 - Memory Exhaustion")." ORDER BY timestamp DESC";
-        } else if ($pType === "500 - Undefined Function") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("500 - Undefined Function")." ORDER BY timestamp DESC";
-        } else if ($pType === "404 - Page Not Found") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("404 - Page Not Found")." ORDER BY timestamp DESC";
-        } else if ($pType === "401 - Access Denied") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("401 - Access Denied")." ORDER BY timestamp DESC";
-        } else if ($pType === "403 - Access Denied") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("403 - Access Denied")." ORDER BY timestamp DESC";
-        } else if ($pType === "403 - File Permission") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("403 - File Permission")." ORDER BY timestamp DESC";
-        } else if ($pType === "Type 500") {
-            $sql = "SELECT * FROM logs WHERE log_type LIKE '5__' ORDER BY timestamp DESC";
-        } else if ($pType === "Type 400") {
-            $sql = "SELECT * FROM logs WHERE log_type LIKE '4__' ORDER BY timestamp DESC";
-        } else if ($pType === "1045 - ER_ACCESS_DENIED_ERROR") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("1045 - ER_ACCESS_DENIED_ERROR")." ORDER BY timestamp DESC";
-        } else if ($pType === "2002 - ER_BAD_HOST_ERROR") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("2002 - ER_BAD_HOST_ERROR")." ORDER BY timestamp DESC";
-        } else if ($pType === "1146 - ER_NO_SUCH_TABLE") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("1146 - ER_NO_SUCH_TABLE")." ORDER BY timestamp DESC";
-        } else if ($pType === "1064 - ER_PARSE_ERROR") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("1064 - ER_PARSE_ERROR")." ORDER BY timestamp DESC";
-        } else if ($pType === "1040 - ER_TOO_MANY_CONNECTIONS") {
-            $sql = "SELECT * FROM logs WHERE ".typeFilter("1040 - ER_TOO_MANY_CONNECTIONS")." ORDER BY timestamp DESC";
-        } else if ("Tous les types") {
-            $sql = "SELECT * FROM logs ORDER BY timestamp DESC";
+function filter($pSource, $pType): string {
+    $sql = "SELECT * FROM logs";  // Start with SELECT only, no WHERE by default
+
+    $filters = [];
+    
+    if (!empty($pSource)) {
+        $sourceFilterResult = sourceFilter($pSource);
+        if (!empty($sourceFilterResult)) {
+            $filters[] = $sourceFilterResult;
         }
     }
+
+    if (!empty($pType)) {
+        $typeFilterResult = typeFilter($pType);
+        if (!empty($typeFilterResult)) {
+            $filters[] = $typeFilterResult;
+        }
+    }
+
+    if (count($filters) > 0) {
+        $sql .= " WHERE " . implode(" AND ", $filters);  // Only add WHERE if filters exist
+    }
+
+    // Add the ORDER BY clause
+    $sql .= " ORDER BY timestamp DESC";  
+
+    echo "<p>SQL générée: " . htmlspecialchars($sql) . "</p>";
     return $sql;
 }
 
 
+
+
 function filterPrint($pConn, $pSource, $pType) {
     try {
-        // Requête SQL pour afficher les logs filtrés
+        // Générer la requête SQL filtrée
         $sql = filter($pSource, $pType);
 
         // Vérifier si la requête SQL est vide
@@ -162,8 +124,19 @@ function filterPrint($pConn, $pSource, $pType) {
             throw new Exception("La requête SQL est vide. Aucun filtre valide n'a été appliqué.");
         }
 
-        // Préparer et exécuter la requête
+        // Préparer la requête SQL
         $stmt = $pConn->prepare($sql);
+
+        // Lier les paramètres pour la source et le type si nécessaire
+        if (strpos($sql, ':pSource') !== false && !empty($pSource)) {
+            $stmt->bindParam(':pSource', $pSource);
+        }
+
+        if (strpos($sql, ':pType') !== false && !empty($pType)) {
+            $stmt->bindParam(':pType', $pType);
+        }
+
+        // Exécuter la requête
         $stmt->execute();
 
         // Afficher les résultats dans le tableau HTML
@@ -185,7 +158,6 @@ function filterPrint($pConn, $pSource, $pType) {
         echo "<tr><td colspan='5'>Erreur : " . htmlspecialchars($e->getMessage()) . "</td></tr>";
     }
 }
-
 
 
 /***************************** Main interaction web-interface *****************************/
