@@ -22,7 +22,7 @@
                 <option value="500">Type 500</option>
                 <option value="400">Type 400</option>
                 <option value="500_memory">500 - Memory Exhaustion</option>
-                <option value="500_undefined">500 - Undefined function</option>
+                <option value="500_undefined">500 - Undefined Function</option>
                 <option value="404">404 - Page Not Found</option>
                 <option value="401">401 - Access Denied</option>
                 <option value="403">403 - Access Denied</option>

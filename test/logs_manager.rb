@@ -27,7 +27,7 @@ def determine_log_type_apache(message)
   if message.include?("exhausted")
     "500 - Memory Exhaustion"
   elsif message.include?("undefined")
-    "500 - Undefined function"
+    "500 - Undefined Function"
   elsif message.include?("404")
     "404 - Page Not Found"
   elsif message.include?("Access denied")

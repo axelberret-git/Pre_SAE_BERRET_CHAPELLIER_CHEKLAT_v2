@@ -10,8 +10,7 @@ Cela induit qu'il existe des cas de figures précis à chaque source.
 
 ## Gestion des logs globale
 
-Un unique cas de figure possible :
-- Source : Toutes les sources ----- Type : Tous les types
+La configuration de base prend l'ensemble des logs avec tous les types possibles.
 
 
 ## Gestion des logs Apache (Wordpress)
