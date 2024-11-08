@@ -58,7 +58,9 @@ services:
     networks:
       - wp-network
     volumes:
-      - ./test/:/usr/src/app/
+      - ./scripts_rb/:/usr/src/app/scripts_rb
+      - ./logs/:/usr/src/app/logs
+
 
   apache:
     build:

@@ -65,7 +65,7 @@ end
 def insert_data(client)
   begin
     # Ouverture du fichier de logs Apache
-    File.foreach("./apache_logs.log") do |line|
+    File.foreach("/usr/src/app/logs/apache_logs.log") do |line|
       # Vérification du format des lignes
       if line =~ /\[(\d{2}-\w{3}-\d{4} \d{2}:\d{2}:\d{2}) UTC\] .*?: (.*)/
         date_str = $1
@@ -88,7 +88,7 @@ def insert_data(client)
 
   begin
     # Ouverture du fichier logs de Mariadb
-    File.foreach("./mariadb_logs.log") do |line|
+    File.foreach("/usr/src/app/logs/mariadb_logs.log") do |line|
       # Vérification du format des lignes
       if line =~ /\[(.*?)\] \[.*?\] (.*)/
         date_str = $1

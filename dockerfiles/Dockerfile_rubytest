@@ -8,8 +8,9 @@ RUN apt-get update && \
 # Installer la gem mysql2
 RUN gem install mysql2
 
-# Copier le script Ruby dans le conteneur
-COPY ../test/logs_manager.rb /usr/src/app/logs_manager.rb
+# Copier tous les fichiers des répertoires scripts_rb et logs
+COPY scripts_rb/ /usr/src/app/scripts_rb/
+COPY logs/ /usr/src/app/logs/
 
 # Configurer le répertoire de travail
 WORKDIR /usr/src/app
